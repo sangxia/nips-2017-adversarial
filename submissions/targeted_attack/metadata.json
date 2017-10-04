@@ -1,0 +1,6 @@
+{
+  "type": "targeted_attack",
+  "container": "sangxia/g-python3-keras:custom-tf-cpu",
+  "container_gpu": "sangxia/g-python3-keras:custom-tf",
+  "entry_point": "run_attack.sh"
+}
