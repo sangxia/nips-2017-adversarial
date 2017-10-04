@@ -31,6 +31,10 @@ My submission to the three sub-competitions are in the `submissions` directory.
 Files containing pretrained weights need to be placed in the working directory. All `.h5` weights
 are from [Keras](https://keras.io/). All `.ckpt` weights are from 
 [TensorFlow-Slim](https://github.com/tensorflow/models/tree/master/research/slim).
+Some of the models share the same architecture. The easiest way to load all models at the same
+time is to change the variable names. This is done using the `rename_vars.py` script,
+which is a lightly modified version of the one found 
+[here](https://gist.github.com/batzner/7c24802dd9c5e15870b4b56e22135c96).
 
 In the actual submission, the final graphs are frozen, serialized and saved to a `.pb` file for 
 fast loading. This is done with the `prepare_models.py` script.
