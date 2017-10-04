@@ -22,15 +22,15 @@ There are three sub-competitions
 * [Defense](https://www.kaggle.com/c/nips-2017-defense-against-adversarial-attack)
 
 Dev dataset and toolkit available 
-[here](https://github.com/tensorflow/cleverhans/tree/master/examples/nips17_adversarial_competition)
+[here](https://github.com/tensorflow/cleverhans/tree/master/examples/nips17_adversarial_competition).
 
 ## Submission source code
 
 My submission to the three sub-competitions are in the `submissions` directory. 
 
 Files containing pretrained weights need to be placed in the working directory. All `.h5` weights
-are from [Keras](https://keras.io/), all `.ckpt` weights are from 
-[TensorFlow-Slim](https://github.com/tensorflow/models/tree/master/research/slim)
+are from [Keras](https://keras.io/). All `.ckpt` weights are from 
+[TensorFlow-Slim](https://github.com/tensorflow/models/tree/master/research/slim).
 
 In the actual submission, the final graphs are frozen, serialized and saved to a `.pb` file for 
 fast loading. This is done with the `prepare_models.py` script.
