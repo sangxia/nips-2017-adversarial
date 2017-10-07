@@ -117,38 +117,54 @@ def main():
     source_models = ['incresv2ensadv','resnet50', 'inceptionv3adv', 'inceptionv3']
     pred_models = ['incresv2ensadv','resnet50', 'inceptionv3adv']
 
-    step_size = eps
-    noise_size = eps*0.2
-    grad_aug_scale = 0.02
-    min_step = 0.
-    min_noise = 0.
-
+    step_size = 1.8
+    noise_size = 0.
+    grad_aug_scale = 0.
     plan = [\
-            (('RST', 'ir2ea-i3a-i3-r50-nt', source_models), \
-            # ((source_models, pred_models), \
-                (('resnet50', 2), ('resnet50', 2), step_size, noise_size), \
-                (('inceptionv3adv', 2), ('incresv2ensadv', 2), step_size, noise_size), \
-                (('inceptionv3adv', 2), ('incresv2ensadv', 2), step_size*0.5, noise_size), \
-                (('inceptionv3adv', 2), ('incresv2ensadv', 2), step_size*0.5, noise_size), \
-                (('inceptionv3adv', 2), ('incresv2ensadv', 2), step_size*0.5, noise_size)), \
-            (('RST', 'i3-x-ir2-nt', ['inceptionv3','incresv2','xception']), \
-            # ((['inceptionv3','incresv2','xception'], None), \
-                (('inceptionv3', 2), ('incresv2', 2), step_size*0.5, noise_size), \
-                (('inceptionv3', 2), ('xception', 2), step_size*0.5, noise_size), \
-                (('incresv2', 2), ('xception', 2), step_size*0.5, noise_size), \
-                (('inceptionv3', 2), ('xception', 2), step_size*0.5, noise_size)), \
-            (('RST', 'ir2ea-r101-i3a-nt', ['incresv2ensadv', 'resnet101', 'inceptionv3adv']), \
-            # ((['incresv2ensadv', 'resnet101', 'inceptionv3adv'], None), \
-                (('incresv2ensadv', 2), ('resnet101', 2), step_size*0.2, noise_size*0.5), \
-                (('inceptionv3adv', 2), ('resnet101', 2), step_size*0.2, noise_size*0.5), \
-                (('inceptionv3adv', 1), ('incresv2ensadv', 1), max(min_step, step_size*0.1), max(min_noise, noise_size*0.5)), \
-                (('inceptionv3adv', 1), ('incresv2ensadv', 1), max(min_step, step_size*0.1), max(min_noise, noise_size*0.5)), \
-                (('inceptionv3adv', 1), ('incresv2ensadv', 1), max(min_step, step_size*0.1), max(min_noise, noise_size*0.2)), \
-                (('incresv2ensadv', 1), ('incresv2ensadv', 1), max(min_step, step_size*0.1), max(min_noise, noise_size*0.2)), \
-                (('incresv2ensadv', 1), ('resnet101', 1),      max(min_step, step_size*0.1), max(min_noise, noise_size*0.2)), \
-                (('incresv2ensadv', 1), ('incresv2ensadv', 1), max(min_step, step_size*0.1), max(min_noise, noise_size*0.2)), \
-                (('incresv2ensadv', 1), ('incresv2ensadv', 1), max(min_step, step_size*0.1), max(min_noise, noise_size*0.2)), \
-                (('inceptionv3adv', 2), ('incresv2ensadv', 2), max(min_step, step_size*0.1), max(min_noise, noise_size*0.2))), \
+            (('RST', 'ir2ea-i3a-i3-r50-t', ('incresv2ensadv', 'inceptionv3adv', 'inceptionv3', 'resnet50')), \
+                (('incresv2ensadv', 1), ('inceptionv3adv', 1), ('inceptionv3', 1), step_size, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3adv', 1), ('inceptionv3', 1), step_size, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3adv', 1), ('inceptionv3', 1), step_size, noise_size), \
+                (('incresv2ensadv', 1), step_size, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3adv', 1), ('inceptionv3', 1), step_size, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3adv', 1), step_size, noise_size), \
+                (('incresv2ensadv', 1), step_size, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3adv', 1), step_size, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3adv', 1), step_size, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3adv', 1), step_size, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3adv', 1), step_size*0.5, noise_size), \
+                (('incresv2ensadv', 1), step_size*0.5, noise_size), \
+                (('incresv2ensadv', 1), step_size*0.5, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3', 1), step_size*0.5, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3adv', 1), step_size*0.5, noise_size), \
+                (('incresv2ensadv', 1), step_size*0.5, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3adv', 1), ('inceptionv3', 1), step_size*0.25, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3adv', 1), ('inceptionv3', 1), step_size*0.25, noise_size), \
+                (('incresv2ensadv', 1), step_size*0.25, noise_size), \
+                (('incresv2ensadv', 1), step_size*0.25, noise_size), \
+                (('incresv2ensadv', 1), step_size*0.25, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3adv', 1), ('inceptionv3', 1), step_size*0.25, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3adv', 1), ('inceptionv3', 1), step_size*0.25, noise_size), \
+                (('incresv2ensadv', 1), step_size*0.1, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3', 1), step_size*0.1, noise_size), \
+                (('incresv2ensadv', 1), step_size*0.1, noise_size), \
+                (('incresv2ensadv', 1), step_size*0.1, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3', 1), step_size*0.1, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3', 1), step_size*0.1, noise_size), \
+                (('incresv2ensadv', 1), step_size*0.1, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3', 1), step_size*0.1, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3adv', 1), step_size*0.1, noise_size), \
+                (('incresv2ensadv', 1), step_size*0.1, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3', 1), step_size*0.1, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3', 1), step_size*0.1, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3adv', 1), step_size*0.1, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3adv', 1), step_size*0.1, noise_size), \
+                (('incresv2ensadv', 1), step_size*0.1, noise_size), \
+                (('incresv2ensadv', 1), step_size*0.1, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3', 1), step_size*0.1, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3adv', 1), step_size*0.1, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3', 1), step_size*0.1, noise_size), \
+                (('incresv2ensadv', 1), ('inceptionv3', 1), step_size*0.1, noise_size)), \
             ]
 
     if not task_utils.verify_plan(source_models, pred_models, plan):
