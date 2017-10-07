@@ -7,23 +7,25 @@ from tensorflow.python.framework import graph_util
 
 sess = K.get_session()
 
-# file_name = 'def'
-# grad_dict = {}
-# 
-# # TODO for some reason i3a MUST be loaded before the other two i3 adv models, why?
-# defense_models = ['incresv2ensadv', 'inceptionv3adv', 'inceptionv3ens4adv', 'inceptionv3ens3adv', ]
-# dist_pairs = [('inceptionv3ens3adv', 'inceptionv3ens4adv'), \
-#         ('inceptionv3ens3adv', 'incresv2ensadv'), \
-#         ('inceptionv3ens4adv', 'incresv2ensadv'), \
-#         ('inceptionv3adv', 'incresv2ensadv'), \
-#         ('inceptionv3ens3adv', 'inceptionv3adv'), \
-#         ('inceptionv3ens4adv', 'inceptionv3adv'), \
-#         ]
-# model = network_utils.load_defense_model(\
-#         models = defense_models, \
-#         make_model = True, \
-#         dist_pairs = dist_pairs, \
-#         grad_dict = grad_dict)
+######################################
+# Code for preparing defense models
+file_name = 'def'
+grad_dict = {}
+
+# NOTE for some reason i3a MUST be loaded before the other two i3 adv models, why?
+defense_models = ['incresv2ensadv', 'inceptionv3adv', 'inceptionv3ens4adv', 'inceptionv3ens3adv', ]
+dist_pairs = [('inceptionv3ens3adv', 'inceptionv3ens4adv'), \
+        ('inceptionv3ens3adv', 'incresv2ensadv'), \
+        ('inceptionv3ens4adv', 'incresv2ensadv'), \
+        ('inceptionv3adv', 'incresv2ensadv'), \
+        ('inceptionv3ens3adv', 'inceptionv3adv'), \
+        ('inceptionv3ens4adv', 'inceptionv3adv'), \
+        ]
+_ = network_utils.load_defense_model(\
+        models = defense_models, \
+        make_model = False, \
+        dist_pairs = dist_pairs, \
+        grad_dict = grad_dict)
 
 ######################################
 # Code for preparing attack models
@@ -43,19 +45,19 @@ sess = K.get_session()
 # file_name = 'ir2ea-r101-i3a-' + ('nt' if not is_targeted else 't')
 # source_models = ['incresv2ensadv', 'resnet101', 'inceptionv3adv']
 
-# Targeted
-is_targeted = True
-file_name = 'ir2ea-i3a-i3-r50-' + ('nt' if not is_targeted else 't')
-source_models = ['incresv2ensadv', 'inceptionv3adv', 'inceptionv3', 'resnet50']
-
-pred_models = source_models
-grad_dict = {}
-_ = network_utils.load_source_model(models=source_models, \
-        pred_models=pred_models, \
-        is_targeted=is_targeted, \
-        grad_dict=grad_dict, \
-        make_model=False, \
-        load_weights=True)
+# # Targeted
+# is_targeted = True
+# file_name = 'ir2ea-i3a-i3-r50-' + ('nt' if not is_targeted else 't')
+# source_models = ['incresv2ensadv', 'inceptionv3adv', 'inceptionv3', 'resnet50']
+# 
+# pred_models = source_models
+# grad_dict = {}
+# _ = network_utils.load_source_model(models=source_models, \
+#         pred_models=pred_models, \
+#         is_targeted=is_targeted, \
+#         grad_dict=grad_dict, \
+#         make_model=False, \
+#         load_weights=True)
 
 ######################################
 
