@@ -41,6 +41,9 @@ broken down into two parts:
 1. Compute the gradients on a set of models and add them to a sum.
 2. Take the sign of the sum of the above gradients and apply the changes to the input images.
 
+My solution uses a custom built system to parallelize these steps. It is somewhat faster than
+the most naive implementation, but I am not sure this is the best approach for Keras and TensorFlow.
+
 ## Approach for Targeted Attack
 
 Similar to that for non-targeted attack. The main difference here is that targeted attack seems
