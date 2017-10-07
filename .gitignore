@@ -1,2 +1,7 @@
 *.swp
+__pycache__
+*.pb
+*.pickle
+*.h5
+*.ckpt*
 

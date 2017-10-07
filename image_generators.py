@@ -132,7 +132,7 @@ def load_images_into_batches(imgs_info, batch_size, max_samples=None, to_buffer=
             array of target labels if preparing for targeted attack, otherwise None
     """
     num_imgs = len(imgs_info)
-    index_limit = num_imgs if max_samples is None else min(max_samples, index_limit)
+    index_limit = num_imgs if max_samples is None else min(max_samples, num_imgs)
     is_targeted = (len(imgs_info[0])==3)
     img_names = [u[0] for u in imgs_info[:index_limit]]
     img_lbls = np.array([u[1] for u in imgs_info[:index_limit]])
